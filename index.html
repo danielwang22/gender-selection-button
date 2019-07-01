@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>gender selection button</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<style type="text/css">
+    
+    body{
+        margin: 0;
+        padding: 0;
+        background-color: #1D1F21;
+    }
+    #main{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        cursor: pointer;
+    }
+    #main input{
+        position: absolute;
+        -webkit-appearance:none;
+    }
+    #tab{
+        width: 120px;
+        height: 45px;
+        border-radius: 45px;
+        z-index: 999;
+    }
+    #circle{
+        width: 45px;
+        height: 45px;
+        background-color: aqua;
+        position: absolute;
+        top: 0;
+        left: 0;
+        box-shadow: 0 0 15px rgba(0,255,255,.8);
+        border-radius: 50%;
+        z-index: 99;
+        transition: all .9s ease-in;
+    }
+    #main input:checked + #tab #circle{
+        background-color: deeppink;
+        box-shadow: 0 0 15px rgba(255,20,147,08);
+        left: 75px;
+    }
+    #tab:before , #tab:after{
+        content: "";
+        height: 45px;        
+        width: 100%;
+        background: linear-gradient(-90deg,#011 0%,aqua 350%);
+        border-radius: 45px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 1;
+        z-index: 9;
+        transition: all 2s;
+    }
+    #tab:after{
+        background: linear-gradient(90deg,#011 0%,deeppink 350%);
+        opacity: 0;
+    }
+    #main input:checked + #tab:before{
+        opacity: 0;
+    }
+    #main input:checked + #tab:after{
+        opacity: 1;
+    }
+    #tie{
+        font-family: fantasy;
+        color: aqua;
+        font-size: 25px;
+        line-height: 25px;
+        position: absolute;
+        top: 50px;
+        left: 10px;
+        pointer-events:none;
+        transition: all .35s ease-in;
+    }
+    #main input:checked ~ #tie{
+        color: deeppink;
+    }
+    </style>
+<body>
+    <label id="main">
+        <input type="checkbox"/>
+        <div id="tab">
+            <div id="circle">
+                
+            </div>
+        </div>
+        <div id="tie">&#8904;</div>
+    </label>
+    
+    
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $flag=0;
+        $("#main input").click(function(){
+            if($flag == 0){
+                $("#tie").animate({left:"115px",top:"50px"},200,function(){
+                    $("#tie").delay(600).animate({left:"115px",top:"-10px"},200,function(){
+                        $("#tie").delay(200).css("transform","rotate(-120deg)");
+                    });
+                });
+                $flag =1;
+            }else{
+                $('#tie').animate({left:"115px",top:"50px"},200,function(){
+                     $('#tie').delay(500).css("transform","rotate(0deg)");
+                     $("#tie").animate({left:"10px",top:"50px"},200);
+                })
+                $flag = 0;
+            }
+        });
+    });
+    
+    </script>
+</body>
+</html>
